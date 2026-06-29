@@ -1,0 +1,9 @@
+export { default as Payroll } from './Payroll/index';
+export { default as HR } from './HR/index';
+export { default as Accounting } from './Accounting/index';
+export { default as Reports } from './Reports/index';
+export { default as Customers } from './Customers/index';
+export { default as Employees } from './Employees/index';
+export { default as Branches } from './Branches/index';
+export { default as Suppliers } from './Suppliers/index';
+export { default as Settings } from './Settings/index';
