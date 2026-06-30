@@ -1,0 +1,83 @@
+{
+  "app": { "name": "NEXORA AI", "tagline": "Mfumo wa Biashara" },
+  "nav": {
+    "dashboard": "Dashibodi",
+    "pos": "Mauzo (POS)",
+    "inventory": "Bohari",
+    "crm": "Wateja (CRM)",
+    "customers": "Wateja",
+    "accounting": "Hesabu",
+    "payroll": "Mishahara",
+    "hr": "Wafanyakazi",
+    "employees": "Wafanyakazi",
+    "suppliers": "Wasambazaji",
+    "branches": "Matawi",
+    "reports": "Ripoti",
+    "analytics": "Uchambuzi",
+    "ai": "Msaidizi wa AI",
+    "settings": "Mipangilio",
+    "chama": "Chama"
+  },
+  "pos": {
+    "search": "Tafuta bidhaa au piga barcode...",
+    "scan": "Piga",
+    "cart": "Mkokoteni",
+    "checkout": "Maliza Manunuzi",
+    "empty": "Mkokoteni ni tupu",
+    "clear": "Futa",
+    "selectCustomer": "Chagua Mteja (si lazima)",
+    "subtotal": "Jumla ndogo",
+    "discount": "Punguzo",
+    "vat": "VAT (16%)",
+    "total": "Jumla",
+    "addCustomer": "Ongeza Mteja",
+    "scanPlaceholder": "Piga barcode au andika SKU"
+  },
+  "checkout": {
+    "title": "Maliza Manunuzi",
+    "method": "Njia ya Malipo",
+    "mpesa": "M-Pesa",
+    "cash": "Pesa Taslimu",
+    "card": "Kadi",
+    "cashReceived": "Pesa Iliyopokelewa",
+    "change": "Chenji",
+    "mpesaRef": "Nambari ya M-Pesa (si lazima)",
+    "pay": "Lipa {{amount}}",
+    "processing": "Inashughulikia...",
+    "success": "Malipo Yamefaulu!",
+    "receipt": "Risiti",
+    "etimsPending": "Inawasilisha KRA eTIMS...",
+    "etimsFiled": "eTIMS imewasilishwa",
+    "etimsQueued": "Imehifadhiwa — itawasilishwa ukirudi mtandaoni"
+  },
+  "common": {
+    "save": "Hifadhi",
+    "cancel": "Ghairi",
+    "delete": "Futa",
+    "edit": "Hariri",
+    "loading": "Inapakia...",
+    "retry": "Jaribu tena",
+    "search": "Tafuta",
+    "filter": "Chuja",
+    "export": "Hamisha",
+    "import": "Leta",
+    "new": "Mpya",
+    "all": "Zote"
+  },
+  "errors": {
+    "generic": "Hitilafu imetokea.",
+    "network": "Hitilafu ya mtandao — angalia muunganisho wako.",
+    "unauthorized": "Kipindi kimekwisha. Tafadhali ingia tena.",
+    "notFound": "Haipatikani.",
+    "offline": "Uko nje ya mtandao. Mabadiliko yatasawazishwa ukirudi."
+  },
+  "chama": {
+    "title": "Chama",
+    "newGroup": "Chama Kipya",
+    "members": "Wanachama",
+    "contributions": "Michango",
+    "rota": "Zamu ya Merry-go-round",
+    "loans": "Mikopo ya Chama",
+    "groupBuy": "Ununuzi wa Kikundi"
+  }
+}

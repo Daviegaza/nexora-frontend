@@ -2,7 +2,9 @@ import React, { Suspense, lazy } from 'react';
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import { AppLayout } from '../layouts/AppLayout';
 import { useAppStore } from '../store';
-import { hasPermission, PAGE_ACCESS } from '../constants';
+import { roleCan } from '../constants';
+import type { Role } from '../types';
+import { ErrorBoundary } from '../components/ErrorBoundary';
 
 // Lazy load all pages
 const Dashboard = lazy(() => import('../pages/Dashboard'));
@@ -21,6 +23,7 @@ const Employees = lazy(() => import('../pages/Employees'));
 const Branches = lazy(() => import('../pages/Branches'));
 const Suppliers = lazy(() => import('../pages/Suppliers'));
 const Login = lazy(() => import('../pages/Login'));
+const Chama = lazy(() => import('../pages/Chama'));
 
 function PageLoader() {
   return (
@@ -40,7 +43,12 @@ function PageLoader() {
 }
 
 function SuspenseWrapper({ children }: { children: React.ReactNode }) {
-  return <Suspense fallback={<PageLoader />}>{children}</Suspense>;
+  // Per-page error boundary isolates render failures from the rest of the app
+  return (
+    <ErrorBoundary>
+      <Suspense fallback={<PageLoader />}>{children}</Suspense>
+    </ErrorBoundary>
+  );
 }
 
 /** Redirect to login if not authenticated */
@@ -57,40 +65,190 @@ function LoginGuard({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
-/** Protect a route by permission level */
+/** Protect a route via explicit role→path matrix (no level collisions) */
 function RoleGuard({ children, path }: { children: React.ReactNode; path: string }) {
-  const currentRole = useAppStore((s) => s.currentRole);
-  const requiredLevel = PAGE_ACCESS[path];
-  if (requiredLevel && !hasPermission(currentRole, requiredLevel)) {
-    return <Navigate to="/" replace />;
-  }
+  const currentRole = useAppStore((s) => s.currentRole) as Role;
+  if (!roleCan(currentRole, path)) return <Navigate to="/" replace />;
   return <>{children}</>;
 }
 
 const router = createBrowserRouter([
   {
     path: '/login',
-    element: <SuspenseWrapper><LoginGuard><Login /></LoginGuard></SuspenseWrapper>,
+    element: (
+      <SuspenseWrapper>
+        <LoginGuard>
+          <Login />
+        </LoginGuard>
+      </SuspenseWrapper>
+    ),
   },
   {
     path: '/',
-    element: <AuthGuard><AppLayout /></AuthGuard>,
+    element: (
+      <AuthGuard>
+        <AppLayout />
+      </AuthGuard>
+    ),
     children: [
-      { index: true, element: <SuspenseWrapper><Dashboard /></SuspenseWrapper> },
-      { path: 'pos', element: <SuspenseWrapper><RoleGuard path="/pos"><POS /></RoleGuard></SuspenseWrapper> },
-      { path: 'inventory', element: <SuspenseWrapper><RoleGuard path="/inventory"><Inventory /></RoleGuard></SuspenseWrapper> },
-      { path: 'crm', element: <SuspenseWrapper><RoleGuard path="/crm"><CRM /></RoleGuard></SuspenseWrapper> },
-      { path: 'accounting', element: <SuspenseWrapper><RoleGuard path="/accounting"><Accounting /></RoleGuard></SuspenseWrapper> },
-      { path: 'payroll', element: <SuspenseWrapper><RoleGuard path="/payroll"><Payroll /></RoleGuard></SuspenseWrapper> },
-      { path: 'hr', element: <SuspenseWrapper><RoleGuard path="/hr"><HR /></RoleGuard></SuspenseWrapper> },
-      { path: 'reports', element: <SuspenseWrapper><RoleGuard path="/reports"><Reports /></RoleGuard></SuspenseWrapper> },
-      { path: 'analytics', element: <SuspenseWrapper><RoleGuard path="/analytics"><Analytics /></RoleGuard></SuspenseWrapper> },
-      { path: 'settings', element: <SuspenseWrapper><RoleGuard path="/settings"><Settings /></RoleGuard></SuspenseWrapper> },
-      { path: 'ai', element: <SuspenseWrapper><RoleGuard path="/ai"><AIAssistant /></RoleGuard></SuspenseWrapper> },
-      { path: 'customers', element: <SuspenseWrapper><RoleGuard path="/customers"><Customers /></RoleGuard></SuspenseWrapper> },
-      { path: 'employees', element: <SuspenseWrapper><RoleGuard path="/employees"><Employees /></RoleGuard></SuspenseWrapper> },
-      { path: 'branches', element: <SuspenseWrapper><RoleGuard path="/branches"><Branches /></RoleGuard></SuspenseWrapper> },
-      { path: 'suppliers', element: <SuspenseWrapper><RoleGuard path="/suppliers"><Suppliers /></RoleGuard></SuspenseWrapper> },
+      {
+        index: true,
+        element: (
+          <SuspenseWrapper>
+            <Dashboard />
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: 'pos',
+        element: (
+          <SuspenseWrapper>
+            <RoleGuard path="/pos">
+              <POS />
+            </RoleGuard>
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: 'inventory',
+        element: (
+          <SuspenseWrapper>
+            <RoleGuard path="/inventory">
+              <Inventory />
+            </RoleGuard>
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: 'crm',
+        element: (
+          <SuspenseWrapper>
+            <RoleGuard path="/crm">
+              <CRM />
+            </RoleGuard>
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: 'accounting',
+        element: (
+          <SuspenseWrapper>
+            <RoleGuard path="/accounting">
+              <Accounting />
+            </RoleGuard>
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: 'payroll',
+        element: (
+          <SuspenseWrapper>
+            <RoleGuard path="/payroll">
+              <Payroll />
+            </RoleGuard>
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: 'hr',
+        element: (
+          <SuspenseWrapper>
+            <RoleGuard path="/hr">
+              <HR />
+            </RoleGuard>
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: 'reports',
+        element: (
+          <SuspenseWrapper>
+            <RoleGuard path="/reports">
+              <Reports />
+            </RoleGuard>
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: 'analytics',
+        element: (
+          <SuspenseWrapper>
+            <RoleGuard path="/analytics">
+              <Analytics />
+            </RoleGuard>
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: 'settings',
+        element: (
+          <SuspenseWrapper>
+            <RoleGuard path="/settings">
+              <Settings />
+            </RoleGuard>
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: 'ai',
+        element: (
+          <SuspenseWrapper>
+            <RoleGuard path="/ai">
+              <AIAssistant />
+            </RoleGuard>
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: 'customers',
+        element: (
+          <SuspenseWrapper>
+            <RoleGuard path="/customers">
+              <Customers />
+            </RoleGuard>
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: 'employees',
+        element: (
+          <SuspenseWrapper>
+            <RoleGuard path="/employees">
+              <Employees />
+            </RoleGuard>
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: 'branches',
+        element: (
+          <SuspenseWrapper>
+            <RoleGuard path="/branches">
+              <Branches />
+            </RoleGuard>
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: 'suppliers',
+        element: (
+          <SuspenseWrapper>
+            <RoleGuard path="/suppliers">
+              <Suppliers />
+            </RoleGuard>
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: 'chama',
+        element: (
+          <SuspenseWrapper>
+            <RoleGuard path="/chama">
+              <Chama />
+            </RoleGuard>
+          </SuspenseWrapper>
+        ),
+      },
       { path: '*', element: <Navigate to="/" replace /> },
     ],
   },

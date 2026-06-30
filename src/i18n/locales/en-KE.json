@@ -1,0 +1,83 @@
+{
+  "app": { "name": "NEXORA AI", "tagline": "Business Operating System" },
+  "nav": {
+    "dashboard": "Dashboard",
+    "pos": "Point of Sale",
+    "inventory": "Inventory",
+    "crm": "CRM",
+    "customers": "Customers",
+    "accounting": "Accounting",
+    "payroll": "Payroll",
+    "hr": "HR & People",
+    "employees": "Employees",
+    "suppliers": "Suppliers",
+    "branches": "Branches",
+    "reports": "Reports",
+    "analytics": "Analytics",
+    "ai": "AI Assistant",
+    "settings": "Settings",
+    "chama": "Chama / Groups"
+  },
+  "pos": {
+    "search": "Search products or scan barcode...",
+    "scan": "Scan",
+    "cart": "Cart",
+    "checkout": "Checkout",
+    "empty": "Cart is empty",
+    "clear": "Clear",
+    "selectCustomer": "Select Customer (optional)",
+    "subtotal": "Subtotal",
+    "discount": "Discount",
+    "vat": "VAT (16%)",
+    "total": "Total",
+    "addCustomer": "Add Customer",
+    "scanPlaceholder": "Scan barcode or type SKU"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "method": "Payment Method",
+    "mpesa": "M-Pesa",
+    "cash": "Cash",
+    "card": "Card",
+    "cashReceived": "Cash Received",
+    "change": "Change",
+    "mpesaRef": "M-Pesa Reference (optional)",
+    "pay": "Pay {{amount}}",
+    "processing": "Processing...",
+    "success": "Payment Successful!",
+    "receipt": "Receipt",
+    "etimsPending": "Filing with KRA eTIMS...",
+    "etimsFiled": "eTIMS filed",
+    "etimsQueued": "Queued — will file when online"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "loading": "Loading...",
+    "retry": "Retry",
+    "search": "Search",
+    "filter": "Filter",
+    "export": "Export",
+    "import": "Import",
+    "new": "New",
+    "all": "All"
+  },
+  "errors": {
+    "generic": "Something went wrong.",
+    "network": "Network error — please check your connection.",
+    "unauthorized": "Session expired. Please sign in again.",
+    "notFound": "Not found.",
+    "offline": "You are offline. Changes will sync when reconnected."
+  },
+  "chama": {
+    "title": "Chama Group",
+    "newGroup": "New Chama",
+    "members": "Members",
+    "contributions": "Contributions",
+    "rota": "Merry-go-round Rota",
+    "loans": "Group Loans",
+    "groupBuy": "Group Buy"
+  }
+}
